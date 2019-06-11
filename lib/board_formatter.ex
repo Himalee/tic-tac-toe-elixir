@@ -1,5 +1,5 @@
-defmodule BoardPresenter do
-  def present(grid) do
+defmodule BoardFormatter do
+  def format(grid) do
     grid
     |> Enum.with_index
     |> Enum.map(&cell/1)
