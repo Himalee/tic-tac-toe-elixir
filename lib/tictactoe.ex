@@ -7,11 +7,11 @@ defmodule TicTacToe do
   end
 
   def welcome_players do
-    IO.puts(Message.welcome)
+    Console.present(Message.welcome)
   end
 
   defp chosen_size_of_board do
-    IO.gets(Message.size_of_board)
+    Console.receive(Message.size_of_board)
   end
 
   defp convert_size_of_board(user_choice) do
@@ -25,6 +25,6 @@ defmodule TicTacToe do
     size
     |> Board.new
     |> Display.board
-    |> IO.puts
+    |> Console.present
   end
 end
