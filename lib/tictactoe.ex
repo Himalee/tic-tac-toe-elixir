@@ -33,7 +33,7 @@ defmodule TicTacToe do
   defp display_board(size) do
     size
     |> Board.new
-    |> Display.board
+    |> BoardPresenter.present
     |> Console.present
   end
 end
