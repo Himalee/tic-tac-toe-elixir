@@ -13,7 +13,8 @@ defmodule Display do
   defp cell(tuple) when true, do: "  #{elem(tuple, 0)}  "
 
   defp split_grid(grid) do
-    Enum.chunk_every(grid, size(grid))
+    grid
+    |> Enum.chunk_every(size(grid))
   end
 
   defp size(grid) do
