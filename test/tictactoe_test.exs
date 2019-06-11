@@ -3,17 +3,17 @@ defmodule TicTacToeTest do
   import ExUnit.CaptureIO
   doctest TicTacToe
 
-  test "greets players" do
-    execute_main = fn ->
-      TicTacToe.start()
-    end
-    assert capture_io("3\n", execute_main) =~ "Welcome"
+  setup :start
+
+  defp start(_context) do
+    [start: fn -> TicTacToe.start() end]
   end
 
-  test "given user choice, display 3x3 board" do
-    execute_main = fn ->
-      TicTacToe.start()
-    end
-    assert capture_io("3\n", execute_main) =~ "0    1    2  \n  3    4    5  \n  6    7    8  \n"
+  test "greets players", context do
+    assert capture_io("3\n", context[:start]) =~ "Welcome"
+  end
+
+  test "given player board size choice, display 3x3 board", context do
+    assert capture_io("3\n", context[:start]) =~ "0    1    2  \n  3    4    5  \n  6    7    8  \n"
   end
 end
