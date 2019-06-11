@@ -7,11 +7,11 @@ defmodule TicTacToe do
   end
 
   def welcome_players do
-    IO.puts("Welcome to Tic Tac Toe")
+    IO.puts(Message.welcome)
   end
 
   defp chosen_size_of_board do
-    IO.gets"Choose a board size, 3 for 3x3 or 4 for 4x4: "
+    IO.gets(Message.size_of_board)
   end
 
   defp convert_size_of_board(user_choice) do
