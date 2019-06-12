@@ -1,5 +1,6 @@
 defmodule TicTacToe do
   def start do
-    IO.puts("Welcome to Tic Tac Toe")
+    CLI.welcome_players
+    CLI.present_board
   end
 end
