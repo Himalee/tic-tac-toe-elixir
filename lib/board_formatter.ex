@@ -30,7 +30,7 @@ defmodule BoardFormatter do
   defp size(grid) do
     grid
     |> length
-    |>:math.sqrt
+    |> :math.sqrt
     |> round
   end
 end
