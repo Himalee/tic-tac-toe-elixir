@@ -21,4 +21,9 @@ defmodule BoardTest do
   test "checks for available moves" do
     assert Board.available_moves([0, "X", 2, 3, "O", "O", "X", "X", 8], "X", "O") == [0, 2, 3, 8]
   end
+
+  test "checks if board is full" do
+    assert Board.is_full?([0, "X", 2, 3, "O", "O", "X", "X", 8]) == false
+    assert Board.is_full?(["O", "X", "X", "O", "O", "O", "X", "X", "X"]) == true
+  end
 end

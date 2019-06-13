@@ -15,6 +15,10 @@ defmodule Board do
     |> Enum.reject(fn x -> x == mark_one or x == mark_two end)
   end
 
+  def is_full?(grid) do
+    length(Enum.uniq(grid)) == 2
+  end
+
   defp convert(number) do
     Enum.to_list 0..number
   end
