@@ -23,7 +23,6 @@ defmodule Validator do
   end
 
   defp is_integer?(input) do
-    raw_input = String.trim(input)
     Regex.match?(~r/^[0-9]*$/, input)
   end
 end
