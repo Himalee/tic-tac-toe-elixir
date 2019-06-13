@@ -11,7 +11,7 @@ defmodule CLI do
 
   def mark_board(grid, mark, mark_one, mark_two) do
     chosen_move(grid, mark_one, mark_two)
-    |> Board.mark(mark, grid)
+    |> Board.mark(" " <> mark, grid)
   end
 
   def game_over do
