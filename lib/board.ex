@@ -1,8 +1,7 @@
 defmodule Board do
   def new(size) do
     size
-    |> (fn(x) -> x * x end).()
-    |> (fn(a) -> a - 1 end).()
+    |> (fn(x) -> x * x - 1 end).()
     |> convert
   end
 
