@@ -3,36 +3,44 @@ defmodule CLI do
     Console.present(Message.welcome)
   end
 
-  def present_board do
-    chosen_size_of_board()
-    |> convert_size_of_board
-    |> display_board
+  def present_board(grid) do
+    grid
+    |> BoardFormatter.format
+    |> Console.present
   end
 
-  defp chosen_size_of_board do
+  def mark_board(grid, mark, mark_one, mark_two) do
+    chosen_move(grid, mark_one, mark_two)
+    |> Board.mark(" " <> mark, grid)
+  end
+
+  def game_over do
+    Console.present(Message.game_over)
+  end
+
+  defp chosen_move(grid, mark_one, mark_two) do
+    Console.receive(Message.move)
+    |> valid_move(grid, mark_one, mark_two)
+  end
+
+  defp valid_move(move, grid, mark_one, mark_two) do
+    if Validator.is_valid_move?(move, grid, mark_one, mark_two) do
+      Validator.to_integer(move)
+    else
+      chosen_move(grid, mark_one, mark_two)
+    end
+  end
+
+  def chosen_size_of_board do
     Console.receive(Message.size_of_board)
     |> valid_board_size
   end
 
   defp valid_board_size(size) do
     if Validator.is_valid_board_size?(size) do
-      size
+      Validator.to_integer(size)
     else
       chosen_size_of_board()
     end
-  end
-
-  defp convert_size_of_board(user_choice) do
-    user_choice
-    |> String.trim
-    |> Integer.parse
-    |> elem(0)
-  end
-
-  defp display_board(size) do
-    size
-    |> Board.new
-    |> BoardFormatter.format
-    |> Console.present
   end
 end

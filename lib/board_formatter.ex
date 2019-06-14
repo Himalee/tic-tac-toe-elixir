@@ -12,8 +12,14 @@ defmodule BoardFormatter do
     |> Enum.map(&cell/1)
   end
 
-  defp cell(tuple) when elem(tuple, 1) > 9, do: "  #{elem(tuple, 0)} "
-  defp cell(tuple) when true, do: "  #{elem(tuple, 0)}  "
+  def cell(tuple) do
+    single_digit_numbers = Enum.to_list 0..9
+    if Enum.member?(single_digit_numbers, elem(tuple, 0)) do
+      "  #{elem(tuple, 0)} "
+    else
+      " #{elem(tuple, 0)} "
+    end
+  end
 
   defp create_rows(grid) do
     grid
