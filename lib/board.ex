@@ -31,6 +31,14 @@ defmodule Board do
     |> Enum.any?(fn winning_line -> length(Enum.uniq(winning_line)) == 1 end)
   end
 
+  def winning_move(grid) do
+    grid
+    |> all_winning_lines
+    |> Enum.find(fn winning_line -> length(Enum.uniq(winning_line)) == 1 end)
+    |> Enum.uniq
+    |> Enum.at(0)
+  end
+
   defp all_winning_lines(grid) do
     rows(grid) ++ columns(grid) ++ diagonals(grid)
   end

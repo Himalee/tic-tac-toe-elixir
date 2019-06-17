@@ -45,4 +45,9 @@ defmodule BoardTest do
   test "checks if there is no win" do
     assert Board.is_there_a_winner?([0, 1, 2, "X", 4, 5, "O", 7, 8]) == false
   end
+
+  test "winning move" do
+    assert Board.winning_move(["X", "X", "X", 3, 4, 5, "O", 7, 8]) == "X"
+    assert Board.winning_move([0, 1, "!", 3, 4, "!", 6, 7, "!"]) == "!"
+  end
 end

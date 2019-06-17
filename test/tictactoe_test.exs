@@ -27,6 +27,6 @@ defmodule TicTacToeTest do
   end
 
   test "marks board until win", context do
-    assert capture_io(moves_for_win(), context[:start]) =~ "  X   X   X \n  3   O   5 \n  O   7   8 \n"
+    assert capture_io(moves_for_win(), context[:start]) =~ "  X   X   X \n  3   O   5 \n  O   7   8 \nPlayer X wins!\n"
   end
 end
