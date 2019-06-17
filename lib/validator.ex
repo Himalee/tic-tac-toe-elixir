@@ -23,6 +23,6 @@ defmodule Validator do
   end
 
   defp is_integer?(input) do
-    Regex.match?(~r/^[0-9]*$/, input)
+    Regex.match?(~r/^[0-9]+$/, input)
   end
 end

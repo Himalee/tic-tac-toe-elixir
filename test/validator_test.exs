@@ -6,6 +6,7 @@ defmodule ValidatorTest do
     assert Validator.is_valid_board_size?("22") == false
     assert Validator.is_valid_board_size?("abc") == false
     assert Validator.is_valid_board_size?("44") == false
+    assert Validator.is_valid_board_size?("") == false
   end
 
   test "validates board size with valid input" do
