@@ -28,15 +28,19 @@ defmodule Board do
   def is_there_a_winner?(grid) do
     grid
     |> all_winning_lines
-    |> Enum.any?(fn winning_line -> length(Enum.uniq(winning_line)) == 1 end)
+    |> Enum.any?(fn line -> winning_line?(line) end)
   end
 
   def winning_move(grid) do
     grid
     |> all_winning_lines
-    |> Enum.find(fn winning_line -> length(Enum.uniq(winning_line)) == 1 end)
+    |> Enum.find(fn line -> winning_line?(line) end)
     |> Enum.uniq
     |> Enum.at(0)
+  end
+
+  defp winning_line?(line) do
+    length(Enum.uniq(line)) == 1
   end
 
   defp all_winning_lines(grid) do
