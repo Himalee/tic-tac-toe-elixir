@@ -10,6 +10,11 @@ defmodule BoardTest do
     assert length(Board.new(4)) == 16
   end
 
+  test "gets size of board" do
+    assert Board.size(Enum.to_list 0..8) == 3
+    assert Board.size(Enum.to_list 0..15) == 4
+  end
+
   test "marks board using index 0" do
     assert Board.mark(0, "X", Board.new(3)) == ["X", 1, 2, 3, 4, 5, 6, 7, 8]
   end
