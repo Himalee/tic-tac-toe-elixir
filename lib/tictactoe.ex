@@ -12,12 +12,16 @@ defmodule TicTacToe do
 
   defp play(grid, mark) do
     CLI.present_board(grid)
-    if Board.is_there_a_winner?(grid) or Board.is_full?(grid) do
+    if end_of_game?(grid) do
       CLI.game_over
     else
       CLI.mark_board(grid, mark, "X", "O")
       |> play(switch_marks(mark, "X", "O"))
     end
+  end
+
+  defp end_of_game?(grid) do
+    Board.is_there_a_winner?(grid) or Board.is_full?(grid)
   end
 
   defp switch_marks(current_mark, mark_one, mark_two) do
