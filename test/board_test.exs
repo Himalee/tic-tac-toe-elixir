@@ -28,15 +28,21 @@ defmodule BoardTest do
   end
 
   test "checks if board is full" do
+    assert Board.is_full?(["O", "X", "X", "O", "O", "O", "X", "X", "X"])
+  end
+
+  test "checks if board is not full" do
     assert Board.is_full?([0, "X", 2, 3, "O", "O", "X", "X", 8]) == false
-    assert Board.is_full?(["O", "X", "X", "O", "O", "O", "X", "X", "X"]) == true
   end
 
   test "checks if there is a win" do
-    assert Board.is_there_a_winner?(["X", "X", "X", 3, 4, 5, "O", 7, 8]) == true
-    assert Board.is_there_a_winner?([0, 1, 2, "X", 4, 5, "O", "O", "O"]) == true
-    assert Board.is_there_a_winner?([0, 1, "?", "X", "?", 5, "?", "O", "O"]) == true
-    assert Board.is_there_a_winner?(["O", 1, 2, "O", 4, 5, "O", "X", "X"]) == true
+    assert Board.is_there_a_winner?(["X", "X", "X", 3, 4, 5, "O", 7, 8])
+    assert Board.is_there_a_winner?([0, 1, 2, "X", 4, 5, "O", "O", "O"])
+    assert Board.is_there_a_winner?([0, 1, "?", "X", "?", 5, "?", "O", "O"])
+    assert Board.is_there_a_winner?(["O", 1, 2, "O", 4, 5, "O", "X", "X"])
+  end
+
+  test "checks if there is no win" do
     assert Board.is_there_a_winner?([0, 1, 2, "X", 4, 5, "O", 7, 8]) == false
   end
 end
