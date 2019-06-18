@@ -23,7 +23,7 @@ defmodule BoardFormatter do
 
   defp create_rows(grid) do
     grid
-    |> Enum.chunk_every(size(grid))
+    |> Enum.chunk_every(Board.size(grid))
     |> Enum.intersperse("\n")
     |> List.flatten
   end
@@ -31,12 +31,5 @@ defmodule BoardFormatter do
   defp convert_to_presentable_format(grid) do
     grid
     |> Enum.reduce("", fn str, acc -> acc <> str end)
-  end
-
-  defp size(grid) do
-    grid
-    |> length
-    |> :math.sqrt
-    |> round
   end
 end

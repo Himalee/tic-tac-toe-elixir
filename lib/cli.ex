@@ -18,6 +18,17 @@ defmodule CLI do
     Console.present(Message.game_over)
   end
 
+  def winning_move(move) do
+    move
+    |> String.trim
+    |> Message.winner
+    |> Console.present
+  end
+
+  def draw do
+    Console.present(Message.draw)
+  end
+
   defp chosen_move(grid, mark_one, mark_two) do
     Console.receive(Message.move)
     |> valid_move(grid, mark_one, mark_two)

@@ -14,4 +14,12 @@ defmodule Message do
   def game_over do
     "Game over!"
   end
+
+  def winner(move) do
+    "Player " <> move <> " wins!"
+  end
+
+  def draw do
+    "It's a draw!"
+  end
 end
