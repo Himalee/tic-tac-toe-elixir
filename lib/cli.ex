@@ -19,7 +19,10 @@ defmodule CLI do
   end
 
   def winning_move(move) do
-    Console.present(Message.winner(String.trim(move)))
+    move
+    |> String.trim
+    |> Message.winner
+    |> Console.present
   end
 
   def draw do
