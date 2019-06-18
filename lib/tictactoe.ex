@@ -15,7 +15,10 @@ defmodule TicTacToe do
     if end_of_game?(grid) do
       result(grid)
     else
-      CLI.mark_board(grid, mark, "X", "O")
+      player = %HumanPlayer{
+        move: CLI.chosen_move(grid, "X", "O")
+      }
+      Board.mark(Player.get_move(player), " " <> mark, grid)
       |> play(switch_marks(mark, "X", "O"))
     end
   end

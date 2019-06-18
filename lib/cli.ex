@@ -9,11 +9,6 @@ defmodule CLI do
     |> Console.present
   end
 
-  def mark_board(grid, mark, mark_one, mark_two) do
-    chosen_move(grid, mark_one, mark_two)
-    |> Board.mark(" " <> mark, grid)
-  end
-
   def game_over do
     Console.present(Message.game_over)
   end
@@ -29,7 +24,7 @@ defmodule CLI do
     Console.present(Message.draw)
   end
 
-  defp chosen_move(grid, mark_one, mark_two) do
+  def chosen_move(grid, mark_one, mark_two) do
     Console.receive(Message.move)
     |> valid_move(grid, mark_one, mark_two)
   end
