@@ -39,6 +39,12 @@ defmodule Board do
     |> Enum.at(0)
   end
 
+  def random_move(grid, mark_one, mark_two) do
+    grid
+    |> available_moves(mark_one, mark_two)
+    |> Enum.random
+  end
+
   defp winning_line?(line) do
     length(Enum.uniq(line)) == 1
   end
