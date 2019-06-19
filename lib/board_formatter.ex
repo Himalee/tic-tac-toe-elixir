@@ -1,9 +1,21 @@
 defmodule BoardFormatter do
   def format(grid) do
     grid
+    |> insert_spacing
     |> format_with_index
     |> create_rows
     |> convert_to_presentable_format
+  end
+
+  defp insert_spacing(grid) do
+    grid
+    |> Enum.map(fn x ->
+      if is_binary(x) do
+        " " <> x
+      else
+        x
+      end
+    end)
   end
 
   defp format_with_index(grid) do
