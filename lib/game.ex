@@ -16,7 +16,6 @@ defmodule Game do
       show_result(grid)
     else
       players
-      |> current_player
       |> make_move(grid)
       |> Board.mark(current_mark(players), grid)
       |> play(swapped_players(players))
@@ -34,9 +33,16 @@ defmodule Game do
     |> Player.get_mark
   end
 
-  defp make_move(player, grid) do
-    player
-    |> Player.get_move(grid)
+  defp opponent_mark(players) do
+    players
+    |> Enum.at(1)
+    |> Player.get_mark
+  end
+
+  defp make_move(players, grid) do
+    players
+    |> current_player
+    |> Player.get_move(grid, current_mark(players), opponent_mark(players))
   end
 
   defp swapped_players(players) do
