@@ -2,7 +2,7 @@ defmodule Game do
   def new(players) do
     CLI.welcome_players
     create_new_board()
-    |> play("X", players)
+    |> play(players)
   end
 
   defp create_new_board do
@@ -10,7 +10,7 @@ defmodule Game do
     |> Board.new
   end
 
-  defp play(grid, mark, players) do
+  defp play(grid, players) do
     CLI.present_board(grid)
     if end_of_game?(grid) do
       show_result(grid)
@@ -18,14 +18,20 @@ defmodule Game do
       players
       |> current_player
       |> make_move(grid)
-      |> Board.mark(mark, grid)
-      |> play(switch_marks(mark, "X", "O"), swapped_players(players))
+      |> Board.mark(current_mark(players), grid)
+      |> play(swapped_players(players))
     end
   end
 
   defp current_player(players) do
     players
     |> Enum.at(0)
+  end
+
+  defp current_mark(players) do
+    players
+    |> current_player
+    |> Player.get_mark
   end
 
   defp make_move(player, grid) do
@@ -48,13 +54,5 @@ defmodule Game do
 
   defp end_of_game?(grid) do
     Board.is_there_a_winner?(grid) or Board.is_full?(grid)
-  end
-
-  defp switch_marks(current_mark, mark_one, mark_two) do
-    if current_mark == mark_one do
-      mark_two
-    else
-      mark_one
-    end
   end
 end
