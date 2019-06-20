@@ -3,6 +3,19 @@ defmodule Display do
     Console.present(Message.welcome)
   end
 
+  def chosen_game_mode do
+    Console.receive(Message.game_mode_menu)
+    |> valid_game_mode
+  end
+
+  def valid_game_mode(game_mode) do
+    if Validator.is_valid_game_mode?(game_mode) do
+      Validator.to_integer(game_mode)
+    else
+      chosen_game_mode()
+    end
+  end
+
   def present_board(grid) do
     grid
     |> BoardFormatter.format

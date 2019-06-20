@@ -15,6 +15,14 @@ defmodule Validator do
     end
   end
 
+  def is_valid_game_mode?(game_mode) do
+    if is_integer?(game_mode) do
+      to_integer(game_mode) == 1 or to_integer(game_mode) == 2
+    else
+      false
+    end
+  end
+
   def to_integer(input) do
     input
     |> String.trim

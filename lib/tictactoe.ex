@@ -1,5 +1,7 @@
 defmodule TicTacToe do
   def start do
-    Game.new([%HumanPlayer{mark: "X"},  %HumanPlayer{mark: "O"}])
+    Display.chosen_game_mode
+    |> PlayerFactory.set_players
+    |> Game.new
   end
 end

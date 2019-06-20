@@ -26,4 +26,10 @@ defmodule DisplayTest do
       Display.winning_move("X")
     end) == "Player X wins!\n"
   end
+
+  test "gets valid game mode" do
+    assert capture_io([input: "a\n8\n2\n", capture_prompt: false], fn ->
+      IO.write Display.chosen_game_mode
+    end) == "2"
+  end
 end

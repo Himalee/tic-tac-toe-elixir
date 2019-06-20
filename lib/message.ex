@@ -22,4 +22,8 @@ defmodule Message do
   def draw do
     "It's a draw!"
   end
+
+  def game_mode_menu do
+    "Pick a game type:\n1. Human vs Human\n2. Human vs Random Computer Player\n"
+  end
 end
