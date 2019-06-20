@@ -1,3 +1,3 @@
 defprotocol Player do
-  def get_move(args)
+  def get_move(player, grid)
 end
