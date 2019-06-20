@@ -1,17 +1,17 @@
 defmodule Game do
   def new(players) do
-    CLI.welcome_players
+    Display.welcome_players
     create_new_board()
     |> play(players)
   end
 
   defp create_new_board do
-    CLI.chosen_size_of_board
+    Display.chosen_size_of_board
     |> Board.new
   end
 
   defp play(grid, players) do
-    CLI.present_board(grid)
+    Display.present_board(grid)
     if end_of_game?(grid) do
       show_result(grid)
     else
@@ -53,9 +53,9 @@ defmodule Game do
   defp show_result(grid) do
     if Board.is_there_a_winner?(grid) do
       Board.winning_move(grid)
-      |> CLI.winning_move
+      |> Display.winning_move
     end
-    CLI.game_over
+    Display.game_over
   end
 
   defp end_of_game?(grid) do

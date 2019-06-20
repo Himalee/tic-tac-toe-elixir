@@ -1,4 +1,4 @@
-defmodule CLI do
+defmodule Display do
   def welcome_players do
     Console.present(Message.welcome)
   end
