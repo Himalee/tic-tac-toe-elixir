@@ -13,18 +13,32 @@ defmodule Game do
   defp play(grid, mark, players) do
     CLI.present_board(grid)
     if end_of_game?(grid) do
-      result(grid)
+      show_result(grid)
     else
-      player = Enum.at(players, 0)
-      move = Player.get_move(player, grid)
-      marked_board = Board.mark(move, mark, grid)
-      next_mark = switch_marks(mark, "X", "O")
-      swapped_players = Enum.reverse(players)
-      play(marked_board, next_mark, swapped_players)
+      players
+      |> current_player
+      |> make_move(grid)
+      |> Board.mark(mark, grid)
+      |> play(switch_marks(mark, "X", "O"), swapped_players(players))
     end
   end
 
-  defp result(grid) do
+  defp current_player(players) do
+    players
+    |> Enum.at(0)
+  end
+
+  defp make_move(player, grid) do
+    player
+    |> Player.get_move(grid)
+  end
+
+  defp swapped_players(players) do
+    players
+    |> Enum.reverse
+  end
+
+  defp show_result(grid) do
     if Board.is_there_a_winner?(grid) do
       Board.winning_move(grid)
       |> CLI.winning_move
