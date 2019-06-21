@@ -9,13 +9,7 @@ defmodule BoardFormatter do
 
   defp insert_spacing(grid) do
     grid
-    |> Enum.map(fn x ->
-      if is_binary(x) do
-        " " <> x
-      else
-        x
-      end
-    end)
+    |> Enum.map(fn x -> if is_binary(x), do: " " <> x, else: x end)
   end
 
   defp format_with_index(grid) do
