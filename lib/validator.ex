@@ -24,9 +24,9 @@ defmodule Validator do
     |> elem(0)
   end
 
-  defp validate(function, user_input) do
+  defp validate(validation_rule, user_input) do
     if is_integer?(user_input) do
-      function.(user_input)
+      validation_rule.(user_input)
     else
       false
     end
