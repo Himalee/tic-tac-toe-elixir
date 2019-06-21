@@ -10,11 +10,8 @@ defmodule Validator do
   end
 
   def is_valid_move?(move, grid, mark_one, mark_two) do
-    if is_integer?(move) do
-      Enum.member?(Board.available_moves(grid, mark_one, mark_two), to_integer(move))
-    else
-      false
-    end
+    if is_integer?(move), do:
+    Enum.member?(Board.available_moves(grid, mark_one, mark_two), to_integer(move)), else: false
   end
 
   def to_integer(input) do
@@ -25,11 +22,7 @@ defmodule Validator do
   end
 
   defp validate(validation_rule, user_input) do
-    if is_integer?(user_input) do
-      validation_rule.(user_input)
-    else
-      false
-    end
+    if is_integer?(user_input), do: validation_rule.(user_input), else: false
   end
 
   defp is_integer?(input) do
