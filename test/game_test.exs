@@ -5,8 +5,8 @@ defmodule GameTest do
 
   setup(_context) do
     {:ok, [
-      humanvhuman: fn ->  Game.new([%HumanPlayer{mark: "X"},  %HumanPlayer{mark: "O"}]) end,
-      randomvrandom: fn -> Game.new([%RandomComputerPlayer{mark: "X"},  %RandomComputerPlayer{mark: "O"}]) end
+      humanvhuman: fn ->  Game.new([%HumanPlayer{mark: "X"},  %HumanPlayer{mark: "O"}], 0) end,
+      randomvrandom: fn -> Game.new([%RandomComputerPlayer{mark: "X"},  %RandomComputerPlayer{mark: "O"}], 0) end
     ]}
   end
 

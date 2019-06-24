@@ -3,7 +3,8 @@ defmodule RandomComputerPlayer do
 end
 
 defimpl Player, for: RandomComputerPlayer do
-  def get_move(_random_computer_player, grid, mark_one, mark_two) do
+  def get_move(_random_computer_player, grid, mark_one, mark_two, length_of_pause_after_move) do
+    :timer.sleep(length_of_pause_after_move)
     Board.random_move(grid, mark_one, mark_two)
   end
 

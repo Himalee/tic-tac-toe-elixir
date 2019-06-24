@@ -3,7 +3,7 @@ defmodule HumanPlayer do
 end
 
 defimpl Player, for: HumanPlayer do
-  def get_move(_human_player, grid, mark_one, mark_two) do
+  def get_move(_human_player, grid, mark_one, mark_two, _length_of_pause_after_move) do
     Display.chosen_move(grid, mark_one, mark_two)
   end
 

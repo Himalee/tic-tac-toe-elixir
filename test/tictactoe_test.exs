@@ -4,7 +4,7 @@ defmodule TicTacToeTest do
   doctest TicTacToe
 
   setup(_context) do
-    {:ok, [start: fn -> TicTacToe.start end]}
+    {:ok, [start: fn -> TicTacToe.start(0) end]}
   end
 
   defp moves_for_win do
