@@ -1,17 +1,25 @@
-defmodule CLI do
+defmodule Display do
   def welcome_players do
     Console.present(Message.welcome)
+  end
+
+  def chosen_game_mode do
+    Console.receive(Message.game_mode_menu)
+    |> valid_game_mode
+  end
+
+  def valid_game_mode(game_mode) do
+    if Validator.is_valid_game_mode?(game_mode) do
+      Validator.to_integer(game_mode)
+    else
+      chosen_game_mode()
+    end
   end
 
   def present_board(grid) do
     grid
     |> BoardFormatter.format
     |> Console.present
-  end
-
-  def mark_board(grid, mark, mark_one, mark_two) do
-    chosen_move(grid, mark_one, mark_two)
-    |> Board.mark(" " <> mark, grid)
   end
 
   def game_over do
@@ -29,7 +37,7 @@ defmodule CLI do
     Console.present(Message.draw)
   end
 
-  defp chosen_move(grid, mark_one, mark_two) do
+  def chosen_move(grid, mark_one, mark_two) do
     Console.receive(Message.move)
     |> valid_move(grid, mark_one, mark_two)
   end

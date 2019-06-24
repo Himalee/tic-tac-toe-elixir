@@ -2,6 +2,6 @@ defmodule Mix.Tasks.Start do
   use Mix.Task
 
   def run(_) do
-    TicTacToe.start()
+    TicTacToe.start(1000)
   end
 end

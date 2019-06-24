@@ -50,4 +50,14 @@ defmodule BoardTest do
     assert Board.winning_move(["X", "X", "X", 3, 4, 5, "O", 7, 8]) == "X"
     assert Board.winning_move([0, 1, "!", 3, 4, "!", 6, 7, "!"]) == "!"
   end
+
+  test "gets random move from available moves" do
+    assert Board.random_move(["X", 1], "X", "O") == 1
+    assert Board.random_move(["X", 1, 2], "X", "O") == 1 or 2
+  end
+
+  test "marks board with random move" do
+    random_move = Board.random_move(["O", 1], "X", "O")
+    assert Board.mark(random_move, "X", ["O", 1]) == ["O", "X"]
+  end
 end

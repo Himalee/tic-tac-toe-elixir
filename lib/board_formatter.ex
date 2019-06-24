@@ -1,9 +1,15 @@
 defmodule BoardFormatter do
   def format(grid) do
     grid
+    |> insert_spacing
     |> format_with_index
     |> create_rows
     |> convert_to_presentable_format
+  end
+
+  defp insert_spacing(grid) do
+    grid
+    |> Enum.map(fn x -> if is_binary(x), do: " " <> x, else: x end)
   end
 
   defp format_with_index(grid) do
@@ -25,11 +31,16 @@ defmodule BoardFormatter do
     grid
     |> Enum.chunk_every(Board.size(grid))
     |> Enum.intersperse("\n")
+    |> add_new_line
     |> List.flatten
   end
 
   defp convert_to_presentable_format(grid) do
     grid
     |> Enum.reduce("", fn str, acc -> acc <> str end)
+  end
+
+  defp add_new_line(grid) do
+    grid ++ ["\n"]
   end
 end
