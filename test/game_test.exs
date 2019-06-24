@@ -31,7 +31,7 @@ defmodule GameTest do
   end
 
   test "marks board until win", context do
-    assert capture_io(moves_for_win(), context[:humanvhuman]) =~ "  X   X   X \n  3   O   5 \n  O   7   8 \nPlayer X wins!\n"
+    assert capture_io(moves_for_win(), context[:humanvhuman]) =~ "  X   X   X \n  3   O   5 \n  O   7   8 \n\nPlayer X wins!\n"
   end
 
   test "random computer player vs random computer player plays entire game", context do

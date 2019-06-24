@@ -31,11 +31,16 @@ defmodule BoardFormatter do
     grid
     |> Enum.chunk_every(Board.size(grid))
     |> Enum.intersperse("\n")
+    |> add_new_line
     |> List.flatten
   end
 
   defp convert_to_presentable_format(grid) do
     grid
     |> Enum.reduce("", fn str, acc -> acc <> str end)
+  end
+
+  defp add_new_line(grid) do
+    grid ++ ["\n"]
   end
 end
