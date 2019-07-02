@@ -7,7 +7,7 @@ defimpl Player, for: UnbeatableComputerPlayer do
     random_player.mark
   end
 
-  def get_move(unbeatable_computer_player, grid, mark_one, mark_two, _length_of_pause_after_move) do
+  def get_move(unbeatable_computer_player, grid, mark_one, mark_two) do
     unbeatable_computer_player
     |> Player.get_mark
     |> get_best_move(grid, mark_one, mark_two, 0)

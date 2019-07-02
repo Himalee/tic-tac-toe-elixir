@@ -5,9 +5,9 @@ defmodule GameTest do
 
   setup(_context) do
     {:ok, [
-      humanvhuman: fn ->  Game.new([%HumanPlayer{mark: "X"},  %HumanPlayer{mark: "O"}], 0) end,
-      randomvrandom: fn -> Game.new([%RandomComputerPlayer{mark: "X"},  %RandomComputerPlayer{mark: "O"}], 0) end,
-      aivsai: fn -> Game.new([%UnbeatableComputerPlayer{mark: "X"},  %UnbeatableComputerPlayer{mark: "O"}], 0) end
+      humanvhuman: fn ->  Game.new([%HumanPlayer{mark: "X"},  %HumanPlayer{mark: "O"}]) end,
+      randomvrandom: fn -> Game.new([%RandomComputerPlayer{mark: "X", length_of_pause_after_move: 0},  %RandomComputerPlayer{mark: "O", length_of_pause_after_move: 0}]) end,
+      aivsai: fn -> Game.new([%UnbeatableComputerPlayer{mark: "X"},  %UnbeatableComputerPlayer{mark: "O"}]) end
     ]}
   end
 

@@ -1,8 +1,8 @@
 defmodule Game do
-  def new(players, length_of_pause_after_move) do
+  def new(players) do
     Display.welcome_players
     create_new_board()
-    |> play(players, length_of_pause_after_move)
+    |> play(players)
   end
 
   defp create_new_board do
@@ -10,15 +10,15 @@ defmodule Game do
     |> Board.new
   end
 
-  defp play(grid, players, length_of_pause_after_move) do
+  defp play(grid, players) do
     Display.present_board(grid)
     if end_of_game?(grid) do
       show_result(grid)
     else
       players
-      |> make_move(grid, length_of_pause_after_move)
+      |> make_move(grid)
       |> Board.mark(current_mark(players), grid)
-      |> play(swapped_players(players), length_of_pause_after_move)
+      |> play(swapped_players(players))
     end
   end
 
@@ -39,10 +39,10 @@ defmodule Game do
     |> Player.get_mark
   end
 
-  defp make_move(players, grid, length_of_pause_after_move) do
+  defp make_move(players, grid) do
     players
     |> current_player
-    |> Player.get_move(grid, current_mark(players), opponent_mark(players), length_of_pause_after_move)
+    |> Player.get_move(grid, current_mark(players), opponent_mark(players))
   end
 
   defp swapped_players(players) do
