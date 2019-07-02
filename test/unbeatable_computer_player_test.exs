@@ -1,0 +1,40 @@
+defmodule UnbeatableComputerPlayerTest do
+  use ExUnit.Case
+  doctest UnbeatableComputerPlayer
+
+  test "returns last remaining move which results in a win" do
+    grid = ["X", "X", 2, "O", "O", "X", "X", "O", "O"]
+    unbeatable_computer_player = %UnbeatableComputerPlayer{mark: "X"}
+    assert Player.get_move(unbeatable_computer_player, grid, "X", "O", 0) == 2
+  end
+
+  test "returns last remaining move" do
+    grid = ["X", "O", "X", "O", "O", "X", 6, "X", "O"]
+    unbeatable_computer_player = %UnbeatableComputerPlayer{mark: "X"}
+    assert Player.get_move(unbeatable_computer_player, grid, "X", "O", 0) == 6
+  end
+
+  test "returns move given board with 3 possible moves" do
+    grid = ["X", 1, "X", "O", "O", "X", 6, 7, "O"]
+    unbeatable_computer_player = %UnbeatableComputerPlayer{mark: "X"}
+    assert Player.get_move(unbeatable_computer_player, grid, "X", "O", 0) == 1
+  end
+
+  test "returns move given board with 5 possible moves" do
+    grid = ["O", "X", 2, 3, 4, 5, 6, "X", "O"]
+    unbeatable_computer_player = %UnbeatableComputerPlayer{mark: "X"}
+    assert Player.get_move(unbeatable_computer_player, grid, "X", "O", 0) == 4
+  end
+
+  test "returns move given board with 5 possible moves - trap move" do
+    grid = ["O", 1, 2, 3, "X", "O", 6, 7, "X"]
+    unbeatable_computer_player = %UnbeatableComputerPlayer{mark: "X"}
+    assert Player.get_move(unbeatable_computer_player, grid, "X", "O", 0) == 6 or 2
+  end
+
+  test "returns move given board to stop opponent 'O' from winning" do
+    grid = ["O", "X", 2, 3, "X", 5, 6, 7, 8]
+    unbeatable_computer_player = %UnbeatableComputerPlayer{mark: "O"}
+    assert Player.get_move(unbeatable_computer_player, grid, "X", "O", 0) == 7
+  end
+end

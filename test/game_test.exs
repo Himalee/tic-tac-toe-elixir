@@ -6,7 +6,8 @@ defmodule GameTest do
   setup(_context) do
     {:ok, [
       humanvhuman: fn ->  Game.new([%HumanPlayer{mark: "X"},  %HumanPlayer{mark: "O"}], 0) end,
-      randomvrandom: fn -> Game.new([%RandomComputerPlayer{mark: "X"},  %RandomComputerPlayer{mark: "O"}], 0) end
+      randomvrandom: fn -> Game.new([%RandomComputerPlayer{mark: "X"},  %RandomComputerPlayer{mark: "O"}], 0) end,
+      aivsai: fn -> Game.new([%UnbeatableComputerPlayer{mark: "X"},  %UnbeatableComputerPlayer{mark: "O"}], 0) end
     ]}
   end
 
@@ -36,5 +37,9 @@ defmodule GameTest do
 
   test "random computer player vs random computer player plays entire game", context do
     assert capture_io("3\n", context[:randomvrandom]) =~ "Game over"
+  end
+
+  test "unbeatable computer player vs unbeatable computer player plays entire game and draws", context do
+    assert capture_io("3\n", context[:aivsai]) =~ "draw"
   end
 end

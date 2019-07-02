@@ -24,6 +24,6 @@ defmodule Message do
   end
 
   def game_mode_menu do
-    "Pick a game type:\n1. Human vs Human\n2. Human vs Random Computer Player\n"
+    "Pick a game type:\n1. Human vs Human\n2. Human vs Random Computer Player\n3. Human vs Unbeatable Computer Player\n"
   end
 end

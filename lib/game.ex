@@ -54,6 +54,8 @@ defmodule Game do
     if Board.is_there_a_winner?(grid) do
       Board.winning_move(grid)
       |> Display.winning_move
+    else
+      Display.draw
     end
     Display.game_over
   end
