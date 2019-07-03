@@ -1,5 +1,5 @@
 defmodule UnbeatableComputerPlayer do
-  defstruct [:mark]
+  defstruct [:mark, :length_of_pause_before_move]
 end
 
 defimpl Player, for: UnbeatableComputerPlayer do
