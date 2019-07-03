@@ -1,5 +1,6 @@
 language: elixir
 elixir:
   - 1.7.0
-script:
-  - "MIX_ENV=test mix do deps.get, test && mix compile && mix coveralls.travis"
+env:
+  - MIX_ENV=test
+script: mix coveralls.travis
