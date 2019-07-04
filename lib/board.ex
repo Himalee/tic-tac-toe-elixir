@@ -1,8 +1,7 @@
 defmodule Board do
   def new(size) do
-    size
-    |> (fn(x) -> x * x - 1 end).()
-    |> convert
+    size * size - 1
+    |> create_grid
   end
 
   def mark(index, symbol, grid) do
@@ -19,6 +18,10 @@ defmodule Board do
     |> length
     |> :math.sqrt
     |> round
+  end
+
+  def is_there_a_terminal_state?(grid) do
+    is_there_a_winner?(grid) or is_full?(grid)
   end
 
   def is_full?(grid) do
@@ -43,6 +46,10 @@ defmodule Board do
     grid
     |> available_moves(mark_one, mark_two)
     |> Enum.random
+  end
+
+  defp create_grid(number) do
+    Enum.to_list 0..number
   end
 
   defp winning_line?(line) do
@@ -76,9 +83,5 @@ defmodule Board do
       line ++ [Enum.at(grid, current_index)]
       |> diagonal_line(grid, current_index + increase_index_by, increase_index_by)
     end
-  end
-
-  defp convert(number) do
-    Enum.to_list 0..number
   end
 end
