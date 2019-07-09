@@ -44,7 +44,7 @@ defmodule UnbeatableComputerPlayerTest do
     assert Player.get_move(unbeatable_computer_player, grid, "X", "O") == 2
   end
 
-  test "returns move that results in a win on a 4x4 board with less than 9 moves remaining" do
+  test "returns move that results in a win on a 4x4 board with less than 8 moves remaining" do
     grid = ["X", "X", 2, "X", "O", "O", 6, "X", "O", "O", 10, 11, 12, 13, 14, 15]
     unbeatable_computer_player = %UnbeatableComputerPlayer{mark: "X", length_of_pause_before_move: 0}
     assert Player.get_move(unbeatable_computer_player, grid, "X", "O") == 2

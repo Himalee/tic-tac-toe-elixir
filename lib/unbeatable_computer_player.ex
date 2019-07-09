@@ -17,7 +17,7 @@ defimpl Player, for: UnbeatableComputerPlayer do
 
   defp get_best_move(current_mark, grid, mark_one, mark_two, depth, unbeatable_computer_player) do
     case number_of_available_moves(grid, mark_one, mark_two) do
-      available_moves when available_moves > 9 -> get_best_move(grid, unbeatable_computer_player, mark_one, mark_two)
+      available_moves when available_moves > 9 -> get_best_move(grid, mark_one, mark_two)
       _ ->
         grid
         |> available_moves(mark_one, mark_two)
@@ -30,16 +30,12 @@ defimpl Player, for: UnbeatableComputerPlayer do
     end
   end
 
-  defp get_best_move(grid, unbeatable_computer_player, mark_one, mark_two) do
+  defp get_best_move(grid, mark_one, mark_two) do
     all_lines = Board.all_winning_lines(grid)
-    opponent_mark = switch_marks(unbeatable_computer_player.mark, mark_one, mark_two)
-    cond do
-      a_line_contains_three_of_the_same_mark(all_lines, unbeatable_computer_player.mark) ->
-        get_move_to_win_or_block(all_lines, unbeatable_computer_player.mark)
-      a_line_contains_three_of_the_same_mark(all_lines, opponent_mark) ->
-        get_move_to_win_or_block(all_lines, opponent_mark)
-      true ->
-        Board.random_move(grid, mark_one, mark_two)
+    if line_contains_three_of_the_same_mark?(all_lines) do
+      get_move_to_win_or_block(all_lines, mark_one, mark_two)
+    else
+      Board.random_move(grid, mark_one, mark_two)
     end
   end
 
@@ -48,16 +44,16 @@ defimpl Player, for: UnbeatableComputerPlayer do
     |> Enum.count
   end
 
-  defp get_move_to_win_or_block(lines, mark) do
+  defp get_move_to_win_or_block(lines, mark_one, mark_two) do
     lines
-    |> Enum.find(fn line -> Enum.count(line, fn x -> x == mark end) == 3 end)
-    |> Enum.drop_while(fn x -> x == mark end)
+    |> Enum.find(fn line -> Enum.count(Enum.uniq(line)) == 2 end)
+    |> Enum.drop_while(fn x -> x == mark_one or x == mark_two end)
     |> Enum.at(0)
   end
 
-  defp a_line_contains_three_of_the_same_mark(lines, mark) do
+  defp line_contains_three_of_the_same_mark?(lines) do
     lines
-    |> Enum.any?(fn line -> Enum.count(line, fn x -> x == mark end) == 3 end)
+    |> Enum.any?(fn line -> Enum.count(Enum.uniq(line)) == 2 end)
   end
 
   defp available_moves(grid, mark_one, mark_two) do

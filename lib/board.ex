@@ -48,16 +48,16 @@ defmodule Board do
     |> Enum.random
   end
 
+  def all_winning_lines(grid) do
+    rows(grid) ++ columns(grid) ++ diagonals(grid)
+  end
+
   defp create_grid(number) do
     Enum.to_list 0..number
   end
 
   defp winning_line?(line) do
     length(Enum.uniq(line)) == 1
-  end
-
-  def all_winning_lines(grid) do
-    rows(grid) ++ columns(grid) ++ diagonals(grid)
   end
 
   defp rows(grid) do
