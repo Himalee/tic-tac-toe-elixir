@@ -56,7 +56,7 @@ defmodule Board do
     length(Enum.uniq(line)) == 1
   end
 
-  defp all_winning_lines(grid) do
+  def all_winning_lines(grid) do
     rows(grid) ++ columns(grid) ++ diagonals(grid)
   end
 

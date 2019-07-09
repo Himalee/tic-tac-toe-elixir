@@ -6,13 +6,16 @@ defmodule GameTest do
   setup(_context) do
     {:ok, [
       human_v_human: fn ->
-        Game.play(new_grid(), [%HumanPlayer{mark: "X"},
+        Game.play(new_grid(3), [%HumanPlayer{mark: "X"},
                                %HumanPlayer{mark: "O"}]) end,
       random_v_random: fn ->
-        Game.play(new_grid(), [%RandomComputerPlayer{mark: "X", length_of_pause_before_move: 0},
+        Game.play(new_grid(3), [%RandomComputerPlayer{mark: "X", length_of_pause_before_move: 0},
                                %RandomComputerPlayer{mark: "O", length_of_pause_before_move: 0}]) end,
       ai_v_ai: fn ->
-        Game.play(new_grid(), [%UnbeatableComputerPlayer{mark: "X", length_of_pause_before_move: 0},
+        Game.play(new_grid(3), [%UnbeatableComputerPlayer{mark: "X", length_of_pause_before_move: 0},
+                               %UnbeatableComputerPlayer{mark: "O", length_of_pause_before_move: 0}]) end,
+      ai_v_ai_with_4_x_4_board: fn ->
+        Game.play(new_grid(4), [%UnbeatableComputerPlayer{mark: "X", length_of_pause_before_move: 0},
                                %UnbeatableComputerPlayer{mark: "O", length_of_pause_before_move: 0}]) end
     ]}
   end
@@ -25,8 +28,9 @@ defmodule GameTest do
     "0\n1\n2\n4\n5\n8\n7\n3\n6\n"
   end
 
-  defp new_grid do
-    Enum.to_list 0..8
+  defp new_grid(size) do
+    max_size = size * size - 1
+    Enum.to_list 0..max_size
   end
 
   test "marks board until full", context do
@@ -41,7 +45,11 @@ defmodule GameTest do
     assert capture_io("3\n", context[:random_v_random]) =~ "Game over"
   end
 
-  test "unbeatable computer player vs unbeatable computer player plays entire game and draws", context do
+  test "unbeatable computer player vs unbeatable computer player plays entire game and draws on a 3x3 board", context do
     assert capture_io("3\n", context[:ai_v_ai]) =~ "draw"
+  end
+
+  test "unbeatable computer player vs unbeatable computer player plays entire game and draws on a 4x4 board", context do
+    assert capture_io("3\n", context[:ai_v_ai_with_4_x_4_board]) =~ "draw"
   end
 end

@@ -3,8 +3,8 @@ defmodule UnbeatableComputerPlayer do
 end
 
 defimpl Player, for: UnbeatableComputerPlayer do
-  def get_mark(random_player) do
-    random_player.mark
+  def get_mark(unbeatable_computer_player) do
+    unbeatable_computer_player.mark
   end
 
   def get_move(unbeatable_computer_player, grid, mark_one, mark_two) do
@@ -12,18 +12,52 @@ defimpl Player, for: UnbeatableComputerPlayer do
     |> :timer.sleep
     unbeatable_computer_player
     |> Player.get_mark
-    |> get_best_move(grid, mark_one, mark_two, 1)
+    |> get_best_move(grid, mark_one, mark_two, 1, unbeatable_computer_player)
   end
 
-  defp get_best_move(current_mark, grid, mark_one, mark_two, depth) do
-    grid
-    |> available_moves(mark_one, mark_two)
-    |> Enum.reduce(%{}, fn move, acc ->
-      next_grid = Board.mark(move, current_mark, grid)
-      score = get_score(next_grid, current_mark, mark_one, mark_two, depth)
-      Map.put(acc, move, score)
-    end)
-    |> pick_best_move_or_highest_score(depth)
+  defp get_best_move(current_mark, grid, mark_one, mark_two, depth, unbeatable_computer_player) do
+    case number_of_available_moves(grid, mark_one, mark_two) do
+      available_moves when available_moves > 9 -> get_best_move(grid, unbeatable_computer_player, mark_one, mark_two)
+      _ ->
+        grid
+        |> available_moves(mark_one, mark_two)
+        |> Enum.reduce(%{}, fn move, acc ->
+          next_grid = Board.mark(move, current_mark, grid)
+          next_score = get_score(next_grid, current_mark, mark_one, mark_two, depth, unbeatable_computer_player)
+          Map.put(acc, move, next_score)
+        end)
+        |> pick_best_move_or_highest_score(depth)
+    end
+  end
+
+  defp get_best_move(grid, unbeatable_computer_player, mark_one, mark_two) do
+    all_lines = Board.all_winning_lines(grid)
+    opponent_mark = switch_marks(unbeatable_computer_player.mark, mark_one, mark_two)
+    cond do
+      a_line_contains_three_of_the_same_mark(all_lines, unbeatable_computer_player.mark) ->
+        get_move_to_win_or_block(all_lines, unbeatable_computer_player.mark)
+      a_line_contains_three_of_the_same_mark(all_lines, opponent_mark) ->
+        get_move_to_win_or_block(all_lines, opponent_mark)
+      true ->
+        Board.random_move(grid, mark_one, mark_two)
+    end
+  end
+
+  defp number_of_available_moves(grid, mark_one, mark_two) do
+    available_moves(grid, mark_one, mark_two)
+    |> Enum.count
+  end
+
+  defp get_move_to_win_or_block(lines, mark) do
+    lines
+    |> Enum.find(fn line -> Enum.count(line, fn x -> x == mark end) == 3 end)
+    |> Enum.drop_while(fn x -> x == mark end)
+    |> Enum.at(0)
+  end
+
+  defp a_line_contains_three_of_the_same_mark(lines, mark) do
+    lines
+    |> Enum.any?(fn line -> Enum.count(line, fn x -> x == mark end) == 3 end)
   end
 
   defp available_moves(grid, mark_one, mark_two) do
@@ -31,15 +65,15 @@ defimpl Player, for: UnbeatableComputerPlayer do
     |> Board.available_moves(mark_one, mark_two)
   end
 
-  defp get_score(grid, current_mark, mark_one, mark_two, depth) do
+  defp get_score(grid, current_mark, mark_one, mark_two, depth, unbeatable_computer_player) do
     score =
       if Board.is_there_a_terminal_state?(grid) do
         score(grid, depth)
       else
         switch_marks(current_mark, mark_one, mark_two)
-        |> get_best_move(grid, mark_one, mark_two, depth + 1)
+        |> get_best_move(grid, mark_one, mark_two, depth + 1, unbeatable_computer_player)
       end
-    score * -1
+    -score
   end
 
   defp pick_best_move_or_highest_score(scores, depth) do

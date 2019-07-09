@@ -37,4 +37,34 @@ defmodule UnbeatableComputerPlayerTest do
     unbeatable_computer_player = %UnbeatableComputerPlayer{mark: "O", length_of_pause_before_move: 0}
     assert Player.get_move(unbeatable_computer_player, grid, "X", "O") == 7
   end
+
+  test "returns last remaining move which results in a win on a 4x4 board" do
+    grid = ["X", "X", 2, "O", "O", "O", "X", "O", "X", "O", "X", "O", "O", "X", "O", "X"]
+    unbeatable_computer_player = %UnbeatableComputerPlayer{mark: "X", length_of_pause_before_move: 0}
+    assert Player.get_move(unbeatable_computer_player, grid, "X", "O") == 2
+  end
+
+  test "returns move that results in a win on a 4x4 board with less than 9 moves remaining" do
+    grid = ["X", "X", 2, "X", "O", "O", 6, "X", "O", "O", 10, 11, 12, 13, 14, 15]
+    unbeatable_computer_player = %UnbeatableComputerPlayer{mark: "X", length_of_pause_before_move: 0}
+    assert Player.get_move(unbeatable_computer_player, grid, "X", "O") == 2
+  end
+
+  test "returns move that results in a win on a 4x4 board with 8 moves remaining" do
+    grid = ["X", "X", 2, "X", "O", "O", 6, "X", "O", "O", 10, 11, 12, 13, 14, 15]
+    unbeatable_computer_player = %UnbeatableComputerPlayer{mark: "X", length_of_pause_before_move: 0}
+    assert Player.get_move(unbeatable_computer_player, grid, "X", "O") == 2
+  end
+
+  test "returns move that results in a win on a 4x4 board with 10 moves remaining" do
+    grid = ["X", "X", 2, "X", "O", "O", 6, 7, 8, "O", 10, 11, 12, 13, 14, 15]
+    unbeatable_computer_player = %UnbeatableComputerPlayer{mark: "X", length_of_pause_before_move: 0}
+    assert Player.get_move(unbeatable_computer_player, grid, "X", "O") == 2
+  end
+
+  test "returns move that blocks opponent from winning on a 4x4 board with 10 moves remaining" do
+    grid = ["X", "X", 2, "X", "O", "O", 6, 7, 8, "O", 10, 11, 12, 13, 14, 15]
+    unbeatable_computer_player = %UnbeatableComputerPlayer{mark: "O", length_of_pause_before_move: 0}
+    assert Player.get_move(unbeatable_computer_player, grid, "X", "O") == 2
+  end
 end
