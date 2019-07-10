@@ -4,7 +4,7 @@ defmodule Negamax do
       available_moves when available_moves > 9 -> get_best_move(grid, mark_one, mark_two)
       _ ->
         grid
-        |> available_moves(mark_one, mark_two)
+        |> Board.available_moves(mark_one, mark_two)
         |> Enum.reduce(%{}, fn move, acc ->
           next_grid = Board.mark(move, current_mark, grid)
           next_score = get_score(next_grid, current_mark, mark_one, mark_two, depth, unbeatable_computer_player)
@@ -15,8 +15,8 @@ defmodule Negamax do
   end
 
   defp get_best_move(grid, mark_one, mark_two) do
-    all_lines = Board.all_winning_lines(grid)
-    if line_contains_three_of_the_same_mark?(all_lines) do
+    all_lines = Line.all_winning_lines(grid)
+    if Line.contains_three_of_the_same_mark?(all_lines) do
       get_move_to_win_or_block(all_lines, mark_one, mark_two)
     else
       RandomMoveGenerator.generate_move(grid, mark_one, mark_two)
@@ -24,7 +24,7 @@ defmodule Negamax do
   end
 
   defp number_of_available_moves(grid, mark_one, mark_two) do
-    available_moves(grid, mark_one, mark_two)
+    Board.available_moves(grid, mark_one, mark_two)
     |> Enum.count
   end
 
@@ -33,16 +33,6 @@ defmodule Negamax do
     |> Enum.find(fn line -> Enum.count(Enum.uniq(line)) == 2 end)
     |> Enum.drop_while(fn x -> x == mark_one or x == mark_two end)
     |> Enum.at(0)
-  end
-
-  defp line_contains_three_of_the_same_mark?(lines) do
-    lines
-    |> Enum.any?(fn line -> Enum.count(Enum.uniq(line)) == 2 end)
-  end
-
-  defp available_moves(grid, mark_one, mark_two) do
-    grid
-    |> Board.available_moves(mark_one, mark_two)
   end
 
   defp get_score(grid, current_mark, mark_one, mark_two, depth, unbeatable_computer_player) do
