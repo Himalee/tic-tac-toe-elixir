@@ -1,7 +1,16 @@
 defmodule TicTacToe do
-  def start(length_of_pause_after_move) do
+  def start do
+    Display.welcome_players
+    Game.play(create_new_board(), set_up_players())
+  end
+
+  defp set_up_players do
     Display.chosen_game_mode
     |> PlayerFactory.set_players
-    |> Game.new(length_of_pause_after_move)
+  end
+
+  defp create_new_board do
+    Display.chosen_size_of_board
+    |> Board.new
   end
 end

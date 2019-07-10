@@ -1,4 +1,9 @@
 defmodule PlayerFactory do
-  def set_players(game_mode) when game_mode == 1, do: [%HumanPlayer{mark: "X"}, %HumanPlayer{mark: "O"}]
-  def set_players(game_mode) when game_mode == 2, do: [%HumanPlayer{mark: "X"}, %RandomComputerPlayer{mark: "O"}]
+  def set_players(game_mode) do
+    cond do
+      game_mode == 1 -> [%HumanPlayer{mark: "X"}, %HumanPlayer{mark: "O"}]
+      game_mode == 2 -> [%HumanPlayer{mark: "X"}, %RandomComputerPlayer{mark: "O", length_of_pause_before_move: 1000}]
+      game_mode == 3 -> [%HumanPlayer{mark: "X"}, %UnbeatableComputerPlayer{mark: "O", length_of_pause_before_move: 1000}]
+    end
+  end
 end

@@ -1,6 +1,10 @@
 defmodule Validator do
   def is_valid_game_mode?(game_mode) do
-    fn game_mode -> to_integer(game_mode) == 1 or to_integer(game_mode) == 2 end
+    fn game_mode ->
+      to_integer(game_mode) == 1 or
+      to_integer(game_mode) == 2 or
+      to_integer(game_mode) == 3
+    end
     |> validate(game_mode)
   end
 
