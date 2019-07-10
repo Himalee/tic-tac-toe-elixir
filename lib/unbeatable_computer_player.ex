@@ -35,7 +35,7 @@ defimpl Player, for: UnbeatableComputerPlayer do
     if line_contains_three_of_the_same_mark?(all_lines) do
       get_move_to_win_or_block(all_lines, mark_one, mark_two)
     else
-      Board.random_move(grid, mark_one, mark_two)
+      RandomMoveGenerator.generate_move(grid, mark_one, mark_two)
     end
   end
 
